@@ -19,27 +19,29 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-    $posts = Post::latest()->get();
-    return view('posts.posts', [
-        'posts'=> $posts
+    return view('posts', [
+        'posts' => Post::latest()->get(),
+        'categories' => Category::all()
     ]);
-});
-Route::get('/post/{post:slug}', function (Post $post) {
-    return view('posts.post', [
-        'post'=> $post
+})->name('home');
+
+Route::get('posts/{post:slug}', function (Post $post) {
+    return view('post', [
+        'post' => $post
     ]);
 });
 
-Route::get('/category/{category:slug}', function (Category $category) {
-    // ddd($category->post());
-    return view('posts.posts', [
-        'posts' => $category->post
+Route::get('categories/{category:slug}', function (Category $category) {
+    return view('posts', [
+        'posts' => $category->posts,
+        'currentCategory' => $category,
+        'categories' => Category::all()
     ]);
-});
+})->name('category');
 
-Route::get('/author/{user:username}', function (User $user) {
-    // ddd($user->post());
-    return view('posts.posts', [
-        'posts' => $user->post
+Route::get('authors/{author:username}', function (User $author) {
+    return view('posts', [
+        'posts' => $author->posts,
+        'categories' => Category::all()
     ]);
 });
