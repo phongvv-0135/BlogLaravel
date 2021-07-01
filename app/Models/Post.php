@@ -18,4 +18,17 @@ class Post extends Model
     public function category() {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeFilter($querry, array $filters) {
+        $querry->when($filters['search'], fn ($querry, $filters) =>  $querry
+            ->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('excerpt', 'like', '%' . request('search') . '%')
+    );
+        
+        // if ($filters['search'] ?? false) {
+        //     $querry
+        //         ->where('title', 'like', '%' . request('search') . '%')
+        //         ->orWhere('excerpt', 'like', '%' . request('search') . '%');
+        // }
+    }
 }
