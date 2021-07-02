@@ -12,7 +12,10 @@
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
                         <div class="ml-3 text-left">
-                            <h5 class="font-bold">{{ $post->user->name }}</h5>
+                            <h5 class="font-bold">
+                                {{-- <a href="/?user={{ $post->user->username }}&{{ http_build_query(request()->except('user')) }}">{{ $post->user->name }}</a> --}}
+                                <a href="/?user={{ $post->user->username }}">{{ $post->user->name }}</a>
+                            </h5>
                         </div>
                     </div>
                 </div>

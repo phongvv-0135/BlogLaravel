@@ -9,14 +9,14 @@ use App\Models\Category;
 class PostController extends Controller
 {
     public function index() {  
-        return view('posts', [
-            'posts' => Post::latest()->filter(request()->all())->get()
+        return view('posts.index', [
+            'posts' => Post::latest()->filter(request()->all())->paginate(6)->withQueryString()
         ]);
 
     }
     
     public function show(Post $post) {
-        return view('post', [
+        return view('posts.show', [
             'post' => $post
         ]);
     }
